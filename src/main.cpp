@@ -80,9 +80,26 @@ int main()
 	pat4->addChild(patTFigther.get());
 
 
+/* Add a grid made of small cubes to visualise the game area */
+	osg::ref_ptr<osg::Geode> geGeodeGrid(new osg::Geode);
+	for(int i=0; i<14; i++)
+	{
+		for(int j=0; j<14; j++)
+		{
+			for(int k=0; k<14; k++)
+			{
+				osg::ref_ptr<osg::Box> shBox(new osg::Box(osg::Vec3f(i, j, k), 0.05, 0.05, 0.05)); // verticale droite
+				osg::ref_ptr<osg::ShapeDrawable> drBox1(new osg::ShapeDrawable(shBox.get()));
+				geGeodeGrid->addDrawable(drBox1.get());
+			}
+		}
+	}
+	
+
 /* SCENE GRAPH*/
 
 	// Add the geode to the scene graph root (Group)
+	root->addChild(geGeodeGrid.get());
 	root->addChild(pat1.get());
 	root->addChild(pat2.get());
 	root->addChild(pat3.get());
